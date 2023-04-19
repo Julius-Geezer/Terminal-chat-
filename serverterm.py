@@ -27,11 +27,14 @@ def broadcast_message(message):
 
 # Saving messages from clients then sending them to other clients using previous function 
 # Handling clients leaving the server
+# Sends all messages to an encrypted .txt file for logging purposes 
 def handle_clients(client): 
     while True:
         try:
             message = client.recv(1024) 
             broadcast_message(message)
+            with open('encrypted_chatlogs.txt', 'a') as f:
+                f.write(message.decode('ascii') + '\n')
         except:
             index = clients.index(client) 
             clients.remove(client) 
@@ -64,4 +67,3 @@ def server_receive():
 
 if __name__ == '__main__':
     server_receive()
-

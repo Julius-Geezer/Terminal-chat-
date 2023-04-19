@@ -3,11 +3,13 @@ import threading
 
 name = input('Choose your name: ') 
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
+# Initializing client and connecting to the server 
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 client.connect(('10.0.0.100', 7976)) 
 
 
+# Receiving messages and error handling for unsuccessful connections 
 def receive():
     while True:
         try:
@@ -21,6 +23,8 @@ def receive():
             client.close()
             break
 
+
+# Writing messages and sending them 
 def write():
     while True:
         message = '{}: {}'.format(name, input(''))
